@@ -1,45 +1,66 @@
 package ordination;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PN {
+public class PN extends Ordination {
 
-    private double antalEnheder;
+    private double antal;
+    private LocalDate startdato;
+    private LocalDate slutdato;
+    private List<LocalDate> givetDatoer = new ArrayList<>();
+    private Laegemiddel laegemiddel;
 
-    /**
-     * Registrerer at der er givet en dosis paa dagen givesDen
-     * Returnerer true hvis givesDen er inden for ordinationens gyldighedsperiode og datoen huskes
-     * Retrurner false ellers og datoen givesDen ignoreres
-     * @param givesDen
-     * @return
-     */
-    public boolean givDosis(LocalDate givesDen) {
-        // TODO
-        return false;   
+    public PN(LocalDate startDen, LocalDate slutDen, Patient patient, Laegemiddel laegemiddel, double antal) {
+        super(startDen,slutDen,patient,laegemiddel,antal);
     }
 
-    public double doegnDosis() {
-        // TODO
-        return 0.0;
-    }
-
-
+    @Override
     public double samletDosis() {
-        // TODO
-        return 0.0;
+        return givetDatoer.size()*antal;
     }
 
-    /**
-     * Returnerer antal gange ordinationen er anvendt
-     * @return
-     */
+    @Override
+    public double doegnDosis() {
+        if (givetDatoer.isEmpty()) return 0.0;
+
+        LocalDate førsteDato = givetDatoer.get(0);
+        LocalDate sidsteDato = givetDatoer.get(0);
+
+        for (LocalDate dato : givetDatoer) {
+            if (dato.isBefore(førsteDato)) førsteDato = dato;
+            if (dato.isAfter(sidsteDato)) sidsteDato = dato;
+        }
+
+        long dage = ChronoUnit.DAYS.between(førsteDato, sidsteDato) + 1; // +1 for inkl. første og sidste dag
+        return givetDatoer.size() * antal / dage;
+    }
+    public boolean givDosis(LocalDate givesDen) {
+        if (!givesDen.isBefore(getStartDen()) && !givesDen.isAfter(getSlutDen())) {
+            givetDatoer.add(givesDen);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String getType() {
+        return "";
+    }
     public int getAntalGangeGivet() {
-        // TODO
-        return-1;
+        return givetDatoer.size();
     }
 
     public double getAntalEnheder() {
-        return antalEnheder;
+        return antal;
     }
 
+    public List<LocalDate> getGivetDatoer() {
+        return new ArrayList<>(givetDatoer);
+    }
 }
+
+
+

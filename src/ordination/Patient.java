@@ -1,9 +1,14 @@
 package ordination;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Patient {
     private String cprnr;
     private String navn;
     private double vaegt;
+
+    private List<Ordination> ordinationer = new ArrayList<>();
 
     // TODO: Link til Ordination
 
@@ -33,11 +38,29 @@ public class Patient {
         this.vaegt = vaegt;
     }
 
-    //TODO: Metoder (med specifikation) til at vedligeholde link til Ordination
+    public List<Ordination> getOrdinationer() {
+        return ordinationer;
+    }
+
+    public void addOrdination(Ordination ordination){
+        if (ordination == null){
+            throw new IllegalArgumentException("Ordination må ikke være null");
+
+        }
+        ordinationer.add(ordination);
+
+    }
+
+    public boolean removeOrdination(Ordination ordination){
+        return ordinationer.remove(ordination);
+    }
+
 
     @Override
     public String toString(){
         return navn + "  " + cprnr;
     }
+
+
 
 }

@@ -39,9 +39,21 @@ public class Controller {
 	 */
 	public PN opretPNOrdination(LocalDate startDen, LocalDate slutDen,
 			Patient patient, Laegemiddel laegemiddel, double antal) {
-		// TODO
-		return null;
+		if (startDen == null || slutDen == null || patient == null || laegemiddel == null) {
+			throw new IllegalArgumentException("Parametre må ikke være null");
+		}
+		if (!checkStartFoerSlut(startDen, slutDen)) {
+			throw new IllegalArgumentException("Startdato skal være før slutdato");
+		}
+		if (antal < 0) {
+			throw new IllegalArgumentException("Antal skal være >= 0");
+		}
+		PN pn = new PN(startDen, slutDen, patient, laegemiddel, antal);
+		patient.addOrdination(pn);
+		return pn;
 	}
+
+
 
 	/**
 	 * Opretter og returnerer en DagligFast ordination. Hvis startDato er efter
@@ -53,9 +65,8 @@ public class Controller {
 			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
 			double morgenAntal, double middagAntal, double aftenAntal,
 			double natAntal) {
-		// TODO
-		return null;
-	}
+        return null;
+    }
 
 	/**
 	 * Opretter og returnerer en DagligSkæv ordination. Hvis startDato er efter

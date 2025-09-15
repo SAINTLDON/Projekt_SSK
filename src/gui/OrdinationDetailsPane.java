@@ -106,8 +106,8 @@ public class OrdinationDetailsPane extends GridPane {
             lblError.setText(e.getMessage());
             return;
         }
-        txtAnvendt.setText(pn.getAntalGangeGivet() + " gange");
-        txtDosis.setText(pn.getAntalEnheder() + "");
+        txtAnvendt.setText(pn.getAntalenheder() + " gange");
+        txtDosis.setText(pn.getAntalenheder() + "");
 
         txtDoegndosis.setText(pn.doegnDosis() + " "
             + pn.getLaegemiddel().getEnhed());
@@ -166,5 +166,6 @@ public class OrdinationDetailsPane extends GridPane {
         txtDosis.setText(pn.getAntalEnheder() + "");
         txtAnvendt.setText(pn.getAntalGangeGivet() + " antal");
     }
+
 
 }

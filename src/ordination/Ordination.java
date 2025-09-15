@@ -6,9 +6,35 @@ import java.time.temporal.ChronoUnit;
 public abstract class Ordination {
     private LocalDate startDen;
     private LocalDate slutDen;
+    private Patient patient;
+    private Laegemiddel laegemiddel;
 
     // TODO Link til Laegemiddel
     // TODO constructor (med specifikation)
+
+
+    public Ordination(LocalDate startDen, LocalDate slutDen, Patient patient, Laegemiddel laegemiddel, double antal) {
+        this.startDen = startDen;
+        this.slutDen = slutDen;
+        this.patient = patient;
+        this.laegemiddel = laegemiddel;
+
+        if (slutDen.isBefore(startDen)){
+            throw new IllegalArgumentException("Slutdato kan ikek starte førr");
+        }
+        if (patient == null || laegemiddel == null){
+            throw new IllegalArgumentException("Patient og lægemiddel skal være fyldt ud");
+        }
+    }
+
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public Laegemiddel getLaegemiddel() {
+        return laegemiddel;
+    }
 
     public LocalDate getStartDen() {
         return startDen;
@@ -37,15 +63,19 @@ public abstract class Ordination {
      */
     public abstract double samletDosis();
 
+
     /**
      * Returnerer den gennemsnitlige dosis givet pr dag i den periode ordinationen er gyldig
      * @return
      */
     public abstract double doegnDosis();
 
+
     /**
      * Returnerer ordinationstypen som en String
      * @return
      */
     public abstract String getType();
+
+
 }

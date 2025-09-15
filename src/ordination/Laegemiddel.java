@@ -16,6 +16,8 @@ public class Laegemiddel {
         this.enhed = enhed;
     }
 
+
+
     public String getEnhed() {
         return enhed;
     }
