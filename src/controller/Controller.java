@@ -62,8 +62,21 @@ public class Controller {
 			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
 			double morgenAntal, double middagAntal, double aftenAntal,
 			double natAntal) {
-        return null;
+		if (startDen == null || slutDen == null || patient == null || laegemiddel == null){
+			throw new IllegalArgumentException("Parameterene må ikke være null");
+		}
+		if (!checkStartFoerSlut(startDen,slutDen)){
+			throw new IllegalArgumentException("startdato skal være før slutdato");
+		}
+		if (morgenAntal < 0 || middagAntal < 0 || aftenAntal < 0 || natAntal < 0 ){
+			throw new IllegalArgumentException("doser skal være over 0");
+		}
+		DagligFast dagligFast = new DagligFast(startDen,slutDen,patient,laegemiddel,morgenAntal,middagAntal,aftenAntal,natAntal);
+
+		patient.addOrdination(dagligFast);
+		return dagligFast;
     }
+
 
 	/**
 	 * Opretter og returnerer en DagligSkæv ordination. Hvis startDato er efter
