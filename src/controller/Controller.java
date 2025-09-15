@@ -98,9 +98,10 @@ public class Controller {
 		if (klokkeSlet == null || antalEnheder == null || klokkeSlet.length != antalEnheder.length ){
 			throw new IllegalArgumentException("Klokkeslet og antalendheder skal være samme længde");
 		}
-		for (double antal : antalEnheder){
-			if (antal < 0);
-			throw new IllegalArgumentException("alle doser skal være over 0");
+		for (double antal : antalEnheder) {
+			if (antal < 0) {
+				throw new IllegalArgumentException("alle doser skal være over 0");
+			}
 		}
 		List<Dosis> doser = new ArrayList<>();
 		for (int i = 0; i < klokkeSlet.length; i++){

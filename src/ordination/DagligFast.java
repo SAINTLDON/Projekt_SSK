@@ -1,6 +1,7 @@
 package ordination;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 public class DagligFast extends Ordination {  // RETTET: Skal arve fra Ordination
@@ -34,28 +35,18 @@ public class DagligFast extends Ordination {  // RETTET: Skal arve fra Ordinatio
         return doegnDosis() * antalDage;
     }
 
-
-    public double getMorgenDose() {
-        return morgenDose;
+    public Dosis[] getDoser() {
+        return new Dosis[]{
+                new Dosis(LocalTime.of(8,0), morgenDose),
+                new Dosis(LocalTime.of(12,0), middagDose),
+                new Dosis(LocalTime.of(18,0), aftenDose),
+                new Dosis(LocalTime.of(22,0), natDose)
+        };
     }
 
-    public double getMiddagDose() {
-        return middagDose;
-    }
-
-    public double getAftenDose() {
-        return aftenDose;
-    }
-
-    public double getNatDose() {
-        return natDose;
-    }
-
-    public double[] getDoser() {
-        return new double[]{morgenDose,middagDose,aftenDose,natDose};
-
-    }
 
 }
+
+
 
 
