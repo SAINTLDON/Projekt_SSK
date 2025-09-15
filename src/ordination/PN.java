@@ -14,12 +14,12 @@ public class PN extends Ordination {
     private Laegemiddel laegemiddel;
 
     public PN(LocalDate startDen, LocalDate slutDen, Patient patient, Laegemiddel laegemiddel, double antal) {
-        super(startDen,slutDen,patient,laegemiddel,antal);
+        super(startDen, slutDen, patient, laegemiddel, antal);
     }
 
     @Override
     public double samletDosis() {
-        return givetDatoer.size()*antal;
+        return givetDatoer.size() * antal;
     }
 
     @Override
@@ -37,11 +37,13 @@ public class PN extends Ordination {
         long dage = ChronoUnit.DAYS.between(førsteDato, sidsteDato) + 1; // +1 for inkl. første og sidste dag
         return givetDatoer.size() * antal / dage;
     }
+
     public boolean givDosis(LocalDate givesDen) {
-        if (!givesDen.isBefore(getStartDen()) && !givesDen.isAfter(getSlutDen())) {
+        if ((givesDen.isEqual(startdato) || givesDen.isAfter(startdato)) &&
+                (givesDen.isEqual(slutdato) || givesDen.isBefore(slutdato))) {
             givetDatoer.add(givesDen);
             return true;
-        }
+        } else
         return false;
     }
 
