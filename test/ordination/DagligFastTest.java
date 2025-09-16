@@ -12,7 +12,7 @@ class DagligFastTest {
     @Test
     void testGetDoser() {
         Patient patient = new Patient("121256-0512","Jane",67.0);
-        Laegemiddel laegemiddel = new Laegemiddel("Acetylsalicylsyre",25,60,120,null);
+        Laegemiddel laegemiddel = new Laegemiddel("Acetylsalicylsyre",0.1,0.15,2.0,"mg");
 
 
         DagligFast dagligFast = new DagligFast(LocalDate.of(2025,9,1),LocalDate.of(2025,9,1),patient,laegemiddel,1,2,1,1);
@@ -46,9 +46,9 @@ class DagligFastTest {
     void doegnDosis() {
         // Arrange
         Patient patient = new Patient("070985-1153", "Finn", 90.0);
-        Laegemiddel laegemiddel = new Laegemiddel("Paracetamol", 25, 60, 120, null);
+        Laegemiddel laegemiddel = new Laegemiddel("Paracetamol", 0.1, 0.15, 2.0, "mg");
 
-        // doser: morgen=1, middag=2, aften=1, nat=1  → i alt 5 per døgn
+        // doser: morgen=1, middag=2, aften=1, nat=1 → i alt 5 per døgn
         DagligFast dagligFast = new DagligFast(
                 LocalDate.of(2025, 9, 1),
                 LocalDate.of(2025, 9, 3), // 3 dage
@@ -68,7 +68,7 @@ class DagligFastTest {
     void samletDosis() {
         // Arrange
         Patient patient = new Patient("050972-1233", "Hans", 110.0);
-        Laegemiddel laegemiddel = new Laegemiddel("Fucidin", 25, 60, 120, null);
+        Laegemiddel laegemiddel = new Laegemiddel("Fucidin", 0.1, 0.15, 2.0, "mg");
 
         // doser: morgen=1, middag=2, aften=1, nat=1 → i alt 5 per døgn
         // periode: 3 dage
